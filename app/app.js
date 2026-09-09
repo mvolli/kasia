@@ -1358,7 +1358,7 @@ document.addEventListener("DOMContentLoaded", () => {
       show("screen-paywall");
       return;
     }
-    const { native } = currentLangInfo();
+    const { target, native } = currentLangInfo();
     // Asked in the learner's NATIVE language, not the target — picking a
     // free-conversation topic is a meta/setup step, not target-language
     // practice, so it should be as easy to understand as possible.
