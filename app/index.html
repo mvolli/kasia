@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Kasia · Polnisch &amp; Deutsch im Gespräch lernen</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="app">
+
+    <!-- ============ ONBOARDING ============ -->
+    <section id="screen-onboarding" class="screen">
+      <div class="brand">
+        <div class="logo">🗣️</div>
+        <h1>Kasia</h1>
+        <p class="tag">Polnisch &amp; Deutsch im Gespräch lernen · Ucz się polskiego i niemieckiego, rozmawiając</p>
+      </div>
+
+      <div id="ob-step" class="ob-card">
+        <!-- step 1: language direction unknown yet, so bilingual DE+PL -->
+        <div class="ob-step" data-step="1">
+          <p class="ob-q">Welche Sprache möchtest du lernen? / Jakiego języka chcesz się uczyć?</p>
+          <div class="ob-options" id="ob-lang">
+            <button class="ob-opt selected" data-value="polish"><span class="flag">🇵🇱</span> Polski <small>dla osób mówiących po niemiecku / für Deutschsprachige</small></button>
+            <button class="ob-opt" data-value="german"><span class="flag">🇩🇪</span> Deutsch <small>dla Polaków / für Polnischsprachige</small></button>
+          </div>
+        </div>
+        <!-- step 2 -->
+        <div class="ob-step hidden" data-step="2">
+          <p class="ob-q" data-i18n="onboarding.q.level">Wie ist dein Niveau?</p>
+          <div class="ob-options" id="ob-level">
+            <button class="ob-opt" data-value="beginner">🌱 <span data-i18n="onboarding.level.beginner">Anfänger</span> <small data-i18n="onboarding.level.beginner.sub">A0–A1 · fängt bei null an</small></button>
+            <button class="ob-opt selected" data-value="intermediate">🌿 <span data-i18n="onboarding.level.intermediate">Mittelstufe</span> <small data-i18n="onboarding.level.intermediate.sub">A2–B1 · kann sich unterhalten</small></button>
+            <button class="ob-opt" data-value="advanced">🌳 <span data-i18n="onboarding.level.advanced">Fortgeschritten</span> <small data-i18n="onboarding.level.advanced.sub">B2+ · Feinschliff</small></button>
+          </div>
+        </div>
+        <!-- step 3 -->
+        <div class="ob-step hidden" data-step="3">
+          <p class="ob-q" data-i18n="onboarding.q.goal">Was ist dein Ziel?</p>
+          <div class="ob-options" id="ob-goal">
+            <button class="ob-opt selected" data-value="travel">✈️ <span data-i18n="onboarding.goal.travel">Reisen</span> <small data-i18n="onboarding.goal.travel.sub">Markt, Hotel, Wegbeschreibung</small></button>
+            <button class="ob-opt" data-value="work">💼 <span data-i18n="onboarding.goal.work">Arbeit</span> <small data-i18n="onboarding.goal.work.sub">Meetings, E-Mails, Telefonate</small></button>
+            <button class="ob-opt" data-value="daily">☕ <span data-i18n="onboarding.goal.daily">Alltag</span> <small data-i18n="onboarding.goal.daily.sub">Freunde, Café, Smalltalk</small></button>
+          </div>
+        </div>
+      </div>
+
+      <div class="ob-actions">
+        <button id="ob-next" class="btn primary big" data-i18n="onboarding.continue">Weiter</button>
+        <button id="ob-start" class="btn ghost hidden" data-i18n="onboarding.start">Los geht's 🎉</button>
+      </div>
+      <p class="fine" data-i18n="onboarding.fine">Persönliche Version — unbegrenzt nutzbar, keine Werbung</p>
+    </section>
+
+    <!-- ============ HOME ============ -->
+    <section id="screen-home" class="screen hidden">
+      <header class="home-head">
+        <div>
+          <p class="hello">Dzień dobry! 👋</p>
+          <h2 data-i18n="home.title">Bereit zum Üben?</h2>
+        </div>
+        <div class="chips">
+          <span class="chip" id="chip-streak" title="streak">🔥 0</span>
+          <span class="chip" id="chip-daily" title="free conversations left today">💬 1 left today</span>
+          <button class="chip chip-btn hidden" id="chip-review" title="Words due for review"></button>
+          <button class="chip chip-btn" id="chip-switch-lang" title="Switch which language you're learning"></button>
+          <button class="chip chip-btn" id="theme-toggle" title="Light/Dark mode">🌙</button>
+        </div>
+      </header>
+
+      <p id="progress-line" class="progress-line hidden"></p>
+
+      <button id="basics-card" class="basics-card hidden">
+        <div class="basics-card-info">
+          <b>📘 Grundlagen</b>
+          <small id="basics-card-sub">Noch keine Vorkenntnisse? Fang hier an.</small>
+        </div>
+        <div class="basics-card-progress">
+          <div class="basics-progress-bar"><i id="basics-progress-fill"></i></div>
+          <span id="basics-progress-text">0/5</span>
+        </div>
+      </button>
+
+      <div class="mode-grid">
+        <button class="mode-card" id="mode-roleplay">
+          <span class="mode-emoji">🎭</span>
+          <b data-i18n="home.roleplay.title">Rollenspiel-Modus</b>
+          <small data-i18n="home.roleplay.desc">Wähle eine Szene und sprich dich hindurch.</small>
+        </button>
+        <button class="mode-card" id="mode-tutor">
+          <span class="mode-emoji">💬</span>
+          <b data-i18n="home.freeconv.title">Freies Gespräch</b>
+          <small data-i18n="home.freeconv.desc">Kein Skript — rede über alles, wirst dabei korrigiert.</small>
+        </button>
+      </div>
+
+      <h3 class="section-title" data-i18n="home.todayScenario">Heutiges Szenario</h3>
+      <div id="scenario-list" class="scenario-list"></div>
+
+      <div class="home-foot">
+        <div id="tutor-badge" class="tutor-badge">Tutor: Demo-Modus</div>
+        <div class="home-foot-actions">
+          <button id="btn-reset-day" class="btn tiny ghost">reset day (dev)</button>
+          <button id="btn-manage-pro" class="btn tiny ghost hidden">cancel Pro (dev)</button>
+          <button id="btn-ai-test" class="btn tiny ghost hidden">AI test (dev)</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CONVERSATION ============ -->
+    <section id="screen-chat" class="screen hidden">
+      <header class="chat-head">
+        <button id="btn-quit" class="icon-btn" title="End conversation">✕</button>
+        <div class="chat-title">
+          <b id="chat-scenario-title">Szenario</b>
+          <small id="chat-goal"></small>
+        </div>
+        <button id="btn-end" class="btn tiny" data-i18n="chat.end">Beenden</button>
+      </header>
+
+      <div id="chat-log" class="chat-log">
+        <!-- bubbles injected here -->
+      </div>
+
+      <div class="chat-input">
+        <div class="chat-typing hidden" id="chat-typing">…</div>
+        <div class="input-row">
+          <button id="btn-input-lang" class="input-lang-btn" title="Which language are you typing/speaking in?"></button>
+          <button id="btn-mic" class="mic-btn" title="Hold / tap to speak">
+            <svg viewBox="0 0 24 24" width="26" height="26"><path fill="currentColor" d="M12 14a3 3 0 0 0 3-3V5a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.92V20h2v-2.08A7 7 0 0 0 19 11h-2z"/></svg>
+          </button>
+          <input id="chat-text" class="chat-text" type="text" placeholder="" autocomplete="off" />
+          <button id="btn-send" class="send-btn" title="Send">➤</button>
+        </div>
+        <div class="chat-tools">
+          <button id="btn-repeat" class="tool-btn" data-i18n="chat.repeat">🔊 Wiederholen</button>
+          <button id="btn-slower" class="tool-btn" data-i18n="chat.slower">🐢 Langsamer</button>
+          <button id="btn-hints" class="tool-btn active" data-i18n="chat.hints">💡 Hinweise</button>
+          <button id="btn-coach" class="tool-btn active" data-i18n="chat.coach.on">🎯 Coach: An</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PAYWALL (Free/Pro) ============ -->
+    <section id="screen-paywall" class="screen hidden">
+      <div class="paywall-card">
+        <p class="paywall-kicker">Kostenloses Kontingent für heute aufgebraucht</p>
+        <h2>Kasia Pro 🚀</h2>
+        <ul class="paywall-features">
+          <li>♾️ Unbegrenzte Gespräche, jeden Tag</li>
+          <li>💬 Unbegrenzter Modus „Freies Gespräch"</li>
+          <li>🧠 Langzeitgedächtnis über mehrere Sitzungen</li>
+          <li>📚 Vollständiges Vokabelheft mit Spaced Repetition</li>
+        </ul>
+        <p class="paywall-price">9,99 € / Monat · jederzeit kündbar</p>
+        <button id="btn-paywall-trial" class="btn primary big">7 Tage kostenlos testen</button>
+        <button id="btn-paywall-close" class="btn ghost big">Nicht jetzt</button>
+        <p class="paywall-fine">Entwicklervorschau: noch kein Zahlungsanbieter angebunden — setzt nur lokal ein Pro-Flag zu Test-/Designzwecken.</p>
+      </div>
+    </section>
+
+    <!-- ============ VOCAB REVIEW (spaced repetition) ============ -->
+    <section id="screen-review" class="screen hidden">
+      <header class="chat-head">
+        <button id="btn-review-quit" class="icon-btn" title="Back to home">✕</button>
+        <div class="chat-title">
+          <b data-i18n="review.title">Vokabel-Wiederholung</b>
+          <small id="review-progress"></small>
+        </div>
+      </header>
+
+      <div class="review-body">
+        <div class="review-card" id="review-card">
+          <div class="word-row">
+            <p class="review-word" id="review-word"></p>
+            <button class="speaker-btn" id="btn-review-speak" title="Wort hören">🔊</button>
+          </div>
+          <p class="review-gloss hidden" id="review-gloss"></p>
+          <button id="btn-review-show" class="btn primary big" data-i18n="review.showAnswer">Antwort zeigen</button>
+          <div class="review-ratings hidden" id="review-ratings">
+            <button class="btn rate-again" data-rating="1">😵 Again</button>
+            <button class="btn rate-hard" data-rating="2">😕 Hard</button>
+            <button class="btn rate-good" data-rating="3">🙂 Good</button>
+            <button class="btn rate-easy" data-rating="4">😄 Easy</button>
+          </div>
+        </div>
+        <div class="review-empty hidden" id="review-empty">
+          <p data-i18n="review.empty">🎉 Alles erledigt! Gerade nichts fällig.</p>
+          <button id="btn-review-done" class="btn ghost" data-i18n="review.back">Zurück</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ GRUNDLAGEN: Lektionsliste ============ -->
+    <section id="screen-basics" class="screen hidden">
+      <header class="chat-head">
+        <button id="btn-basics-quit" class="icon-btn" title="Back to home">✕</button>
+        <div class="chat-title">
+          <b>Grundlagen</b>
+          <small id="basics-lessons-sub"></small>
+        </div>
+      </header>
+      <div id="basics-lesson-list" class="scenario-list"></div>
+      <button id="btn-basics-mixed" class="btn ghost basics-mixed-btn hidden">🔀 Gemischte Wiederholung</button>
+    </section>
+
+    <!-- ============ GRUNDLAGEN: Karten-Lektion ============ -->
+    <section id="screen-basics-lesson" class="screen hidden">
+      <header class="chat-head">
+        <button id="btn-basics-lesson-quit" class="icon-btn" title="Back">✕</button>
+        <div class="chat-title">
+          <b id="basics-lesson-title">Lektion</b>
+          <small id="basics-lesson-progress"></small>
+        </div>
+      </header>
+      <div class="review-body">
+        <!-- Phase 1: präsentieren (hören, optional nachsprechen) -->
+        <div class="review-card" id="basics-card-view">
+          <div class="word-row">
+            <span id="basics-emoji" class="word-emoji hidden"></span>
+            <p class="review-word" id="basics-word"></p>
+            <button class="speaker-btn" id="btn-basics-speak" title="Wort erneut hören">🔊</button>
+          </div>
+          <div class="repeat-row">
+            <button class="btn ghost" id="btn-basics-repeat">🎤 Nachsprechen</button>
+            <span id="basics-repeat-feedback" class="repeat-feedback"></span>
+          </div>
+          <p class="review-gloss hidden" id="basics-gloss"></p>
+          <button id="btn-basics-show" class="btn primary big">Karte umdrehen</button>
+          <button id="btn-basics-next" class="btn primary big hidden">Weiter</button>
+        </div>
+
+        <!-- Phase 2: wiedererkennen (Multiple Choice) -->
+        <div class="review-card hidden" id="basics-mc-view">
+          <div class="word-row">
+            <span id="basics-mc-emoji" class="word-emoji hidden"></span>
+            <p class="review-word" id="basics-mc-word"></p>
+            <button class="speaker-btn" id="btn-basics-mc-speak" title="Wort hören">🔊</button>
+          </div>
+          <p class="mc-question">Was bedeutet das?</p>
+          <div class="mc-options" id="basics-mc-options"></div>
+          <button id="btn-basics-mc-next" class="btn primary big hidden">Weiter</button>
+        </div>
+
+        <!-- Phase 3: produzieren (Satzbau) -->
+        <div class="review-card hidden" id="basics-sentence-view">
+          <p class="review-gloss" id="basics-sentence-gloss"></p>
+          <div class="sentence-target" id="basics-sentence-target"></div>
+          <div class="sentence-bank" id="basics-sentence-bank"></div>
+          <button class="btn ghost tiny" id="btn-basics-sentence-clear">↺ Zurücksetzen</button>
+          <p id="basics-sentence-feedback" class="repeat-feedback"></p>
+          <button id="btn-basics-sentence-next" class="btn primary big hidden">Weiter</button>
+        </div>
+
+        <div class="review-empty hidden" id="basics-lesson-done">
+          <p id="basics-lesson-done-msg">🎉 Lektion abgeschlossen! Die Wörter wandern jetzt in dein Vokabelheft.</p>
+          <button id="btn-basics-lesson-back" class="btn ghost">Zurück zu den Lektionen</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SUMMARY ============ -->
+    <section id="screen-summary" class="screen hidden">
+      <div class="summary-card">
+        <p class="summary-kicker" data-i18n="summary.complete">Gespräch beendet</p>
+        <h2 id="summary-title">Great job! 🎉</h2>
+
+        <div class="score-row" id="score-grammar"><span class="score-label">📐 Grammar</span><div class="bar"><i></i></div><b class="score-val">0</b></div>
+        <div class="score-row" id="score-fluency"><span class="score-label">🌊 Fluency</span><div class="bar"><i></i></div><b class="score-val">0</b></div>
+        <div class="score-row" id="score-vocabulary"><span class="score-label">📚 Vocabulary</span><div class="bar"><i></i></div><b class="score-val">0</b></div>
+        <div class="score-row" id="score-engagement"><span class="score-label">🔥 Engagement</span><div class="bar"><i></i></div><b class="score-val">0</b></div>
+        <div class="score-row" id="score-relevance"><span class="score-label">🎯 Relevance</span><div class="bar"><i></i></div><b class="score-val">0</b></div>
+
+        <p id="summary-note" class="summary-note"></p>
+
+        <div class="summary-stats">
+          <div><b id="stat-words">0</b><small data-i18n="summary.newWords">neue Wörter</small></div>
+          <div><b id="stat-min">0</b><small data-i18n="summary.minutes">Minuten</small></div>
+          <div><b id="stat-streak">0</b><small data-i18n="summary.streak">🔥 Tage-Serie</small></div>
+        </div>
+
+        <div class="vocab-save hidden" id="vocab-save">
+          <p class="save-title" data-i18n="summary.saveWords">Neue Wörter — antippen, um sie im Vokabelheft zu speichern:</p>
+          <div id="vocab-chips" class="vocab-chips"></div>
+        </div>
+
+        <div class="summary-actions">
+          <button id="btn-repeat-scenario" class="btn primary" data-i18n="summary.repeat">Szene wiederholen</button>
+          <button id="btn-go-home" class="btn ghost" data-i18n="summary.home">Start</button>
+        </div>
+      </div>
+    </section>
+
+  </div>
+  <!-- Capacitor runtime (bundled locally, offline-capable; no-op on plain web) -->
+  <script src="capacitor.js"></script>
+  <script type="module" src="app.js"></script>
+</body>
+</html>

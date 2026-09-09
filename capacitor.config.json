@@ -1,0 +1,9 @@
+{
+  "appId": "pl.kasia.trainer",
+  "appName": "Kasia",
+  "webDir": "app",
+  "server": {
+    "androidScheme": "https"
+  },
+  "allowMixedContent": true
+}

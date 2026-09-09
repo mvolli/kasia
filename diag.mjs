@@ -1,0 +1,20 @@
+import { chromium } from "playwright";
+const b = await chromium.launch({args:["--no-sandbox"]});
+const p = await (await b.newContext({viewport:{width:420,height:860}})).newPage();
+p.on("pageerror", e => console.log("PAGEERROR:", e.stack || e.message));
+p.on("console", m => m.type()==="error" && console.log("CONSOLE:", m.text()));
+await p.goto("http://localhost:4173", {waitUntil:"networkidle"});
+await p.evaluate(()=>localStorage.clear());
+await p.goto("http://localhost:4173", {waitUntil:"networkidle"});
+await p.waitForSelector("#screen-onboarding .ob-step[data-step='1']");
+await p.click("#ob-next"); await p.waitForTimeout(200);
+console.log("step2 visible:", await p.locator(".ob-step[data-step='2']:not(.hidden)").count());
+await p.click("#ob-level .ob-opt[data-value='beginner']");
+await p.click("#ob-next"); await p.waitForTimeout(200);
+console.log("start visible:", await p.locator("#ob-start:not(.hidden)").count());
+await p.click("#ob-start");
+await p.waitForTimeout(1500);
+for (const id of ["screen-onboarding","screen-home","screen-chat","screen-summary"])
+  console.log(id, "hidden:", await p.locator("#"+id).evaluate(el=>el.classList.contains("hidden")));
+await p.screenshot({path:"/tmp/diag-home.png"});
+await b.close();

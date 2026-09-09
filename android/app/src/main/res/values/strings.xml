@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Kasia</string>
+    <string name="title_activity_main">Kasia</string>
+    <string name="package_name">pl.kasia.trainer</string>
+    <string name="custom_url_scheme">pl.kasia.trainer</string>
+</resources>

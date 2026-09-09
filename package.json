@@ -1,0 +1,19 @@
+{
+  "name": "polish-trainer",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node server.mjs",
+    "dev": "node --watch server.mjs"
+  },
+  "dependencies": {
+    "@capacitor/android": "^6.2.2",
+    "@capacitor/cli": "^6.2.2",
+    "@capacitor/core": "^6.2.2",
+    "ws": "^8.18.0"
+  },
+  "devDependencies": {
+    "playwright": "^1.53.0"
+  }
+}
